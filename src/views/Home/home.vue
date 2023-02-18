@@ -1,75 +1,71 @@
 <template>
   <div class="container">
     <div class="content">
-    <h1>ihkfslkdjf</h1>
-      <!-- 背景切换/回到顶部 -->
-      <div class="theme-set">
-        <button @click="themeSwitchClick">
-          切换
-        </button>
-        <el-color-picker v-model="switchColor" show-alpha :predefine="predefineColors" @change="colorChange"/>
-        <span class="test">测试</span>
+      <!-- 导航 -->
+      <div class="nav">
+        <div class="nav-wrap">
+          <div class="nav-left">
+            <span class="nav-wrap-left-item">
+              <el-icon class="icon"><HomeFilled /></el-icon>
+              <span class="nav-wrap-left-item-text">首页</span>
+            </span>
+            <span class="nav-wrap-left-item">
+              <!-- <img src="@/assets/images/icon/icon-liuyan.png" class="nav-wrap-left-item-icon"/> -->
+              <el-icon class="icon"><Comment /></el-icon>
+              <span class="nav-wrap-left-item-text">留言</span>
+            </span>
+            <span class="nav-wrap-left-item" @click="handleClassIfy">
+              <el-icon class="icon"><MoreFilled /></el-icon>
+              <el-dropdown ref="classify" trigger="contextmenu" style="margin-right: 30px">
+                <span class="nav-wrap-left-item-text"> 分类 </span>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item>选项一</el-dropdown-item>
+                    <el-dropdown-item>选项二</el-dropdown-item>
+                    <el-dropdown-item>选项三</el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+            </span>
+          </div>
+          <div class="nav-right">
+            <el-input class="w-50 m-2" size="large" placeholder="Please Input" :prefix-icon="Search"/>
+          </div>
+        </div>
       </div>
-      <!-- 导航栏 -->
+      <!-- 内容 -->
+      <div class="main">
+        <!-- 侧边栏 -->
+        <!-- wrap -->
+        <div class="main-wrap">
+          <el-button>测试</el-button>
+        </div>
+      </div>
+      <!-- 背景切换/回到顶部 -->
+      <themeCut />
     </div>
   </div>
 </template>
 
 <script lang='ts' setup>
-
+import themeCut from './component/themeCut.vue';
 import { ref } from 'vue';
-import { themeSwitch , customTheme } from '@/theme';
-
-// 引入自定义组件
-
-
-const predefineColors = ref([
-  '#ff4500',
-  '#ff8c00',
-  '#ffd700',
-  '#90ee90',
-  '#00ced1',
-  '#1e90ff',
-  '#c71585',
-  'rgba(255, 69, 0, 0.68)',
-  'rgb(255, 120, 0)',
-  'hsv(51, 100, 98)',
-  'hsva(120, 40, 94, 0.5)',
-  'hsl(181, 100%, 37%)',
-  'hsla(209, 100%, 56%, 0.73)',
-  '#c7158577',
-])
-
-let model = ref('white');
-let switchColor = ref('#F2AA42');
-
-const themeSwitchClick = () => {
-  if(model.value == 'white') {
-    themeSwitch('--color-bgcolor' , model.value , 'rgba( 0 , 0 , 0 , .6)');
-  } else {
-    themeSwitch('--color-bgcolor' , model.value , 'rgba( 255 , 255 , 255 , .6)');
-  }
-  // themeSwitch('--color--bgcolor' , switchColor.value , model.value);
-  model.value = model.value == 'white' ? 'black' : 'white';
+import { Search } from '@element-plus/icons-vue';
+let classify = ref();
+const handleClassIfy = () => {
+  classify.value.handleOpen()
 }
-
-const colorChange = (color: string) => {
-  console.log(color);
-  customTheme(color);
-}
-
-
-
 </script>
 
 <style scoped lang='scss'>
 .container {
   width: 100%;
   height: 100%;
+  overflow-y: auto;
     // opacity: 0.8;
   filter: brightness(var(--dead-colour));
   background-color: rgba(var(--color-bgcolor));
-  background-image: url('@/assets/images/bg-img_1.png');
+  background-image: url('@/assets/images/bg/bg-img_1.png');
   background-size: cover;
   // background-size: 100%;
   // object-fit: cover;
@@ -78,15 +74,73 @@ const colorChange = (color: string) => {
 
   .content {
     opacity: 0.7;
+    
+    // 导航
+    .nav {
+      height: 70px;
+      width: 100%;
+      font-size: 16px;
+      // background-color: var(--color-custom-color);
 
-    // 主题设置/返回顶部
-    .theme-icon {
-      font-size: 30px;
+      .nav-wrap {
+        max-width: 1500px;
+        height: 70px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .nav-wrap-left-item {
+          padding: 0 20px;
+
+          .icon {
+            vertical-align: middle;
+          }
+
+          .nav-wrap-left-item-text {
+            color: var(--color-font-color);
+            height: 21px;
+            vertical-align: middle;
+            line-height: 21px;
+            margin-left: 5px;
+          }
+
+
+        }
+
+        .nav-right {
+          ::v-deep .is-focus {
+            box-shadow: none;
+          }
+          ::v-deep .el-input__wrapper {
+            box-shadow: none;
+            background-color: var(--color-custom-color);
+            
+            
+            // &:hover {
+            //   box-shadow:0 , 0, 0 , 1 var(--color-custom-color);
+            // }
+
+            // &:focus {
+            //   box-shadow:0 , 0, 0 , 1 var(--color-custom-color) inset!important;;
+            // }
+
+            .el-input__inner::placeholder {
+              color: var(--color-font-color);
+            }
+       
+
+            .el-icon {
+              color: var(--color-font-color);
+            }
+          }
+
+
+        }
+      }
     }
 
-    .test {
-      font-size: 30px;
-    }
+
   }
 }
 

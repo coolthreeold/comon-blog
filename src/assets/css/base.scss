@@ -2,15 +2,18 @@
 // 初始变量
 :root {
   // 主题背景色
-  --color-bgcolor: rgba(255, 255, 255 ,.6);
+  --color-bgcolor: rgba(189, 221, 242 , .8);
   // 字体颜色
   --color-font-color: #000;
   // 根据自定义切换颜色
-  --color-custom-color: '';
+  --color-custom-color: rgba(178, 178, 223);
   // 背景暗色
   --dead-colour: 100%;
-  // 字体
-  // font-family: "Open Sans";
+  // 圆角设置
+  --border-radius: 5px;
+  // 移入/移出
+  --color-blur-filter: 80%;
+  --color-focus-filter: 100%;
 }
 
 
@@ -24,6 +27,99 @@ h6 {
 }
 
 
-span {
-  color: var(--color-custom-color);
+// span {
+//   color: var(--color-custom-color);
+// }
+
+
+// 图标字体颜色
+.icon {
+  color: var(--color-font-color);
 }
+
+
+/* el-button 按钮 */
+
+.is-plain {
+  filter: brightness(--color-focus-filter);
+
+  // &:hover {
+    border: none;
+    // filter: brightness(--color-blur-filter);
+  // }
+}
+
+
+
+.el-button {
+  background-color: var(--color-custom-color);
+  filter: brightness(--color-focus-filter);
+
+  .el-color-dropdown__link-btn {
+    // background: ;:
+    &:hover {
+      background-color: var(--color-custom-color);
+    }
+  }
+
+  span {
+    color: var(--color-font-color);
+  }
+
+  &:hover {
+    filter: brightness(--color-blur-filter);
+    background-color: var(--color-custom-color);
+  }
+}
+
+
+/* el-dropdown 下拉菜单 */
+// 首页分类下拉
+.el-dropdown-menu {
+  background-color: var(--color-custom-color)!important;
+
+    .el-dropdown-menu__item {
+      filter: brightness(--color-focus-filter);
+    }
+
+  .el-dropdown-menu__item:hover {
+    filter: brightness(--color-blur-filter);
+    background-color: var(--color-custom-color)!important;
+    color: var(--color-font-color);
+  }
+
+
+  * {
+    color: var(--color-font-color);
+  }
+}
+
+// 弹出框设置 /首页 => 设置
+.el-popper {
+  border-radius: var(--border-radius);
+  filter: brightness(var(--dead-colour));
+  background: var(--color-bgcolor)!important;
+  border: none!important;
+
+  .el-popper__arrow::before {
+    content: none!important;
+  }
+  
+  * {
+    color: var(--color-font-color);
+  }
+  // filter: brightness(var(--dead-colour));
+  .el-button {
+
+
+    color: var(--color-font-color);
+    background: var(--color-custom-color);
+  }
+  
+}
+
+
+
+
+
+

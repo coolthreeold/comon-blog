@@ -2,7 +2,7 @@
 export const themeSwitch = (prop: string , model: string , color: string): void => {
   if(model === 'white') {
     document.documentElement.style.setProperty('--color-font-color' , '#fff');
-    document.documentElement.style.setProperty('--dead-colour' , '75%');
+    document.documentElement.style.setProperty('--dead-colour' , '80%');
   } else {
     document.documentElement.style.setProperty('--color-font-color' , '#000');
     document.documentElement.style.setProperty('--dead-colour' , '100%');
@@ -12,4 +12,5 @@ export const themeSwitch = (prop: string , model: string , color: string): void 
 
 export const customTheme = (color: string): void => {
   document.documentElement.style.setProperty('--color-custom-color' , color);
+  
 }

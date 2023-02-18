@@ -8,5 +8,10 @@ import 'element-plus/dist/index.css'
 // 初始样式
 import './assets/css/base.scss';
 // iconfont
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-createApp(App).use(router).use(ElementPlus).mount('#app')
+const app = createApp(App);
+app.use(router).use(ElementPlus).mount('#app')
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
