@@ -1,0 +1,29 @@
+
+// 初始变量
+:root {
+  // 主题背景色
+  --color-bgcolor: rgba(255, 255, 255 ,.6);
+  // 字体颜色
+  --color-font-color: #000;
+  // 根据自定义切换颜色
+  --color-custom-color: '';
+  // 背景暗色
+  --dead-colour: 100%;
+  // 字体
+  // font-family: "Open Sans";
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-font-color);
+}
+
+
+span {
+  color: var(--color-custom-color);
+}
