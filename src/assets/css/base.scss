@@ -1,19 +1,34 @@
 
-// 初始变量
+/*
+  CSS 书写规范
+    1.位置属性(position, top, right, z-index, display, float等)　
+    2.大小(width, height, padding, margin)
+    3.文字系列(font, line-height, letter-spacing, color- text-align等)　
+    4.背景(background, border等)
+    5.其他(animation, transition等)
+*/
 :root {
+  /* 颜色变量 */
   // 主题背景色
   --color-bgcolor: rgba(189, 221, 242 , .8);
-  // 字体颜色
-  --color-font-color: #000;
-  // 根据自定义切换颜色
-  --color-custom-color: rgba(178, 178, 223);
   // 背景暗色
   --dead-colour: 100%;
-  // 圆角设置
+
+  // 根据自定义切换颜色
+  --color-custom-color: rgba(178, 178, 223);
+  // 圆角设置 默认值 5px
   --border-radius: 5px;
-  // 移入/移出
-  --color-blur-filter: 80%;
+  /* 移入/移出 filter(暗色) */
   --color-focus-filter: 100%;
+  --color-blur-filter: 80%;
+
+
+  /* 字体 */
+  // 字体颜色
+  --color-font-color: #000;
+
+
+  // --bg-url: url('@/assets/images/bg/bg-img_1.png');
 }
 
 
@@ -26,14 +41,14 @@ h6 {
   color: var(--color-font-color);
 }
 
-
-// span {
-//   color: var(--color-custom-color);
-// }
+@mixin bg-url ($url) {
+  background-image: url($url);
+}
 
 
 // 图标字体颜色
 .icon {
+  font-size: var(--font-size);
   color: var(--color-font-color);
 }
 
@@ -42,11 +57,7 @@ h6 {
 
 .is-plain {
   filter: brightness(--color-focus-filter);
-
-  // &:hover {
-    border: none;
-    // filter: brightness(--color-blur-filter);
-  // }
+  border: none;
 }
 
 
@@ -94,29 +105,132 @@ h6 {
   }
 }
 
-// 弹出框设置 /首页 => 设置
-.el-popper {
-  border-radius: var(--border-radius);
-  filter: brightness(var(--dead-colour));
-  background: var(--color-bgcolor)!important;
+/* 首页 */
+// 搜索框 动画
+
+
+
+@keyframes search1 {
+  0% {
+    opacity: 0;
+    transform: translateX(222px);
+  }
+  10% {
+    opacity: 0.1;
+    transform: translateX(399.6px);
+  }
+  20% {
+    opacity: 0.2;
+    transform: translateX(355.2px);
+  }
+  30% {
+    opacity: 0.3;
+    transform: translateX(310.8px);
+  }
+  40% {
+    opacity: 0.4;
+    transform: translateX(266.4px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(226.2px);
+  }
+  60% {
+    opacity: 0.6;
+    transform: translateX(181.8px);
+  }
+
+  70% {
+    opacity: 0.7;
+    transform: translateX(137.4px);
+  }
+  80% {
+    opacity: 0.8;
+    transform: translateX(93px);
+  }
+  90% {
+    opacity: 0.9;
+    transform: translateX(46.6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(2.2px);
+  }
+}
+.nav__right--search {
+  display: none;
+}
+
+.translate1__x {
+  animation: search1 1.5s linear;
+}
+
+.translate2__x {
+  animation: search1 1.5s linear;
+  animation-direction: reverse;
+}
+// @keyframes search2 {
+//   from {
+//     opacity: 1;
+//     transform: translateX(-222px);
+//   }
+//   to {
+//     opacity: 0;
+//     transform: translateX(222px);
+//   }
+// }
+
+
+
+
+
+// el-popover 弹出框 
+.instrument__set--popover {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   border: none!important;
+  border-radius: var(--border-radius);
+  background: var(--color-bgcolor)!important;
+  filter: brightness(var(--dead-colour));
 
   .el-popper__arrow::before {
     content: none!important;
   }
-  
-  * {
-    color: var(--color-font-color);
-  }
-  // filter: brightness(var(--dead-colour));
-  .el-button {
 
+  .theme__set__aside {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 100%;
 
-    color: var(--color-font-color);
-    background: var(--color-custom-color);
+      .theme__set__aside--close,
+      .theme__set__aside--picker {
+        width: 100%;
+      }
+
+      .theme__set__aside--close {
+        padding: 5px 0;
+      }
+
+      .theme__set__aside--picker {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
   }
-  
+
+  ::v-deep {
+    .el-color-picker__trigger {
+      border: none;
+
+      &:hover {
+        border: none;
+      }
+    }
+  }
 }
+
 
 
 

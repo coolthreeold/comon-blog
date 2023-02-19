@@ -17,5 +17,7 @@ module.exports = {
     "vue/multi-word-component-names": "off",
     "no-self-assign": "off",
     "no-redeclare": "off",
+    "no-extra-semi": "error",
+    // "no-extra-semi": "off"
   }
 }

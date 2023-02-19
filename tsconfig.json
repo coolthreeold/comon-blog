@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/views/test/falseData.js"  ],
+, "src/views/test/falseData.js", "src/utils/flexible.js"  ],
   "exclude": [
     "node_modules"
   ]

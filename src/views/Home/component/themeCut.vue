@@ -1,41 +1,40 @@
 <template>
-  <!-- 暗色/亮色 -->
-  <div class="theme-set">
-      <div class="theme-cut" @click="themeSwitchClick">
-        <!-- <img src="@/assets/images/icon/icon-yueliang.png" class="icon"/> -->
-        <el-icon v-if="cut" class="icon"><TurnOff /></el-icon>
-        <el-icon v-else class="icon"><Open /></el-icon>
-      </div>
+  <!-- 工具栏 -->
+  <div class="instrument">
+    <!-- 背景切换 -->
+    <div class="instrument__theme" @click="themeSwitchClick">
+      <el-icon v-if="cut" class="icon"><TurnOff /></el-icon>
+      <el-icon v-else class="icon"><Open /></el-icon>
+    </div>
       
-      <div class="theme-cut">
-        <el-popover :visible="visible" placement="right" :width="200" :heihgt="500" :popper-class="'el-popover-set'">
-          <div class="theme-cut-set">
-            <div style="text-align: right; margin: 0">
-                <img src="@/assets/images/icon/icon-close.png" @click="visible = false" class="icon"/>
-                <!-- <el-icon class="icon"><Open /></el-icon> -->
-            </div>
-            <div class="color-picker">
-              <span>背景色设置</span>
-              <el-color-picker v-model="switchColor" show-alpha :predefine="predefineColors" @change="colorChange"/>
-            </div>
-            
+    <!-- 弹出设置 -->
+    <div class="instrument__set">
+      <el-popover :visible="visible" placement="right" :width="200" trigger="manual" :popper-class="'instrument__set--popover'" @hide="popoverHide">
+        <div class="theme__set__aside">
+          <div class="theme__set__aside--close" style="text-align: right; margin: 0">
+              <el-icon @click="visible = false" class="icon"><CloseBold /></el-icon>
           </div>
-          <template #reference>
-            <div @click="visible = true" class="theme-cut-btn">
-              <!-- <img src="@/assets/images/icon/icon-shezhi.png" class="icon"/> -->
-              <el-icon class="icon"><Setting /></el-icon>
-            </div>
-          </template>
-        </el-popover>
-      </div>
-      <!-- 弹出设置 -->
+          <div class="theme__set__aside--picker">
+            <span>背景色设置</span>
+            <el-color-picker v-model="switchColor" show-alpha :predefine="predefineColors" @change="colorChange"/>
+          </div>
+          
+        </div>
+        <template #reference>
+          <div @click="visible = true" class="instrument__set--btn">
+            <el-icon class="icon"><Setting /></el-icon>
+          </div>
+        </template>
+      </el-popover>
+    </div>
+    <!-- 弹出设置 -->
     
   </div>
 </template>
 
 <script lang='ts' setup>
 
-import { ref } from 'vue';
+import { ref  } from 'vue';
 import { themeSwitch , customTheme } from '@/theme';
 
 let model = ref('white');
@@ -64,87 +63,54 @@ const colorChange = (color: string) => {
   customTheme(color);
 }
 
+const popoverHide = () => {
+  visible.value = false
+}
+
 // 设置
 const visible = ref(false);
 
 </script>
 
 <style scoped lang='scss'>
-.theme-set {
+.instrument {
   position: fixed;
   bottom: 50px;
   left: 20px;
   
-  .theme-cut {
+  @mixin instrument__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 40px;
     height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color-bgcolor);
     border-radius: 5px;
-
-    .theme-cut-btn {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .theme-cut-set {
-      display: flex;
-      justify-content: flex-end;
-    }
+    background-color: var(--color-bgcolor);
 
     &:hover {
-      background-color: var(--color-custom-color);
       color: #fff;
+      background-color: var(--color-custom-color);
     }
-
   }
 
-  .theme-cut:first-child {
+  // 主题色切换  亮色 / 暗色
+  .instrument__theme {
+    @include instrument__box;
     margin-bottom: 10px;
   }
 
+  // 弹出设置
+  .instrument__set {
+    @include instrument__box;
+
+    .instrument__set--btn {
+      @include instrument__box;
+    }
+  }
 }
 
 .icon {
   width: 18px;
   height: 18px;
 }
-
-
-.theme-cut-set {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-
-  &>div {
-    width: 100%;
-  }
-
-  .color-picker {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-  }
-
-  ::v-deep {
-    .el-color-picker__trigger {
-      border: none;
-
-      &:hover {
-        border: none;
-      }
-    }
-
-    .el-icon {
-      display: none;
-    }
-  }
-}
-  
 </style>
